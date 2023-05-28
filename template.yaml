@@ -1,28 +1,28 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  5. Framework SnapStart
+  Framework Native Image
 
 Globals:
   Function:
     Tracing: Active
-    CodeUri: target/quarkus-lambda-function-1.0.0-SNAPSHOT-aws.jar
-    Handler: io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest
-    Runtime: java17
+    CodeUri: target/function.zip
+    Handler: not.used.in.provided.runtime
+    Runtime: provided.al2
+    Architectures:
+      - arm64
     Timeout: 10
     MemorySize: 2048
-    AutoPublishAlias: live
-    SnapStart:
-      ApplyOn: PublishedVersions
     Environment:
       Variables:
         PRODUCT_TABLE_NAME: !Ref ProductsTable
-#        JAVA_TOOL_OPTIONS: "-verbose:class"
+        DISABLE_SIGNAL_HANDLERS: true
 
 Resources:
   PutProductFunction:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: "awsdevday2023tokyo-sls-framework-native-image"
       Environment:
         Variables:
           quarkus_lambda_handler: createProduct

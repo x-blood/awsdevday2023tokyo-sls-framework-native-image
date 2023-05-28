@@ -1,1 +1,1 @@
-# awsdevday2023tokyo-sls-framework
+# awsdevday2023tokyo-sls-framework-native-image
